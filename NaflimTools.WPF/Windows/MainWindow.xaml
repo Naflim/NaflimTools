@@ -11,9 +11,5 @@
                 Style="{StaticResource MahApps.Styles.Button.Square.Accent}" 
                 BorderThickness="0"
                 Click="BatchRenameClick">批量重命名</Button>
-        <Button Width="200" Height="50" FontSize="20" 
-            Style="{StaticResource MahApps.Styles.Button.Square.Accent}" 
-            BorderThickness="0"
-            Click="BatchRenameClick" Content="批量重命名" Margin="49,217,51,218"/>
     </UniformGrid>
 </metro:MetroWindow>
