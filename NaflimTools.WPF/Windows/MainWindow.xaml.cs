@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using NaflimTools.WPF.Windows;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,6 +21,12 @@ namespace NaflimTools.WPF
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void BatchRenameClick(object sender, RoutedEventArgs e)
+        {
+            BatchRenameWin win = new();
+            win.ShowDialog();
         }
     }
 }

@@ -7,6 +7,13 @@
         GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
         Title="主页" Height="500" Width="300">
     <UniformGrid Columns="1" Rows="1">
-        <Button Width="200" Height="50" FontSize="20" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" BorderThickness="0">批量重命名</Button>
+        <Button Width="200" Height="50" FontSize="20" 
+                Style="{StaticResource MahApps.Styles.Button.Square.Accent}" 
+                BorderThickness="0"
+                Click="BatchRenameClick">批量重命名</Button>
+        <Button Width="200" Height="50" FontSize="20" 
+            Style="{StaticResource MahApps.Styles.Button.Square.Accent}" 
+            BorderThickness="0"
+            Click="BatchRenameClick" Content="批量重命名" Margin="49,217,51,218"/>
     </UniformGrid>
 </metro:MetroWindow>
