@@ -1,0 +1,12 @@
+﻿<metro:MetroWindow x:Class="NaflimTools.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:local="clr-namespace:NaflimTools.WPF"
+        Icon="../Resources/Images/Ayano.ico"
+        GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
+        Title="主页" Height="500" Width="300">
+    <UniformGrid Columns="1" Rows="1">
+        <Button Width="200" Height="50" FontSize="20" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" BorderThickness="0">批量重命名</Button>
+    </UniformGrid>
+</metro:MetroWindow>
