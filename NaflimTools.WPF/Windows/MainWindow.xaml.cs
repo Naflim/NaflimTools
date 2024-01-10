@@ -28,5 +28,11 @@ namespace NaflimTools.WPF
             BatchRenameWin win = new();
             win.ShowDialog();
         }
+
+        private void ChatGPTClick(object sender, RoutedEventArgs e)
+        {
+            ChatGPTWin win = new();
+            win.ShowDialog();
+        }
     }
 }

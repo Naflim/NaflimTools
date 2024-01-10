@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:NaflimTools.WPF.Windows"
         mc:Ignorable="d" Name="baseWin"
         Icon="../Resources/Images/Ayano.ico"
-        Title="批量重命名" Height="450" Width="800" AllowDrop="True">
+        Title="批量重命名" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -25,10 +25,16 @@
 
         <ListBox Style="{StaticResource MahApps.Styles.ListBox.Virtualized}"
                  ItemsSource="{Binding ViewModel.FileList,ElementName=baseWin}"
-                 Drop="FileDrop" Grid.Row="0" Grid.ColumnSpan="7">
+                 metro:MultiSelectorHelper.SelectedItems="{Binding ViewModel.SelectedFiles,ElementName=baseWin}"
+                 SelectionMode="Extended"
+                 AllowDrop="True" Drop="FileDrop"
+                 Grid.Row="0" Grid.ColumnSpan="7">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Name}" />
+                    <StackPanel MouseLeftButtonDown="FileExport" Orientation="Horizontal">
+                        <Image Source="{Binding Logo}" Width="50" Height="50" />
+                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" FontSize="20" />
+                    </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

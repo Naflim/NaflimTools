@@ -1,4 +1,9 @@
 ﻿using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Interop;
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace NaflimTools.WPF.Model
 {
@@ -15,7 +20,24 @@ namespace NaflimTools.WPF.Model
             set
             {
                 _path = value;
+               
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
+            }
+        }
+
+        /// <summary>
+        /// 图标
+        /// </summary>
+        public ImageSource? Logo 
+        {
+            get 
+            {
+                var fileIcon = Icon.ExtractAssociatedIcon(Path);
+
+                if (fileIcon != null)
+                    return Imaging.CreateBitmapSourceFromHIcon(fileIcon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+
+                return null;
             }
         }
 

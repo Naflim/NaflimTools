@@ -11,6 +11,7 @@ namespace NaflimTools.WPF.Model
     public class BatchRenameViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<FileModel> _fileList;
+        private ObservableCollection<FileModel> _selectedFiles;
         private string _prefix;
         private int _startIndex;
 
@@ -24,6 +25,19 @@ namespace NaflimTools.WPF.Model
             {
                 _fileList = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(FileList)));
+            }
+        }
+
+        /// <summary>
+        /// 选中文件列表
+        /// </summary>
+        public ObservableCollection<FileModel> SelectedFiles
+        {
+            get { return _selectedFiles; }
+            set
+            {
+                _selectedFiles = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedFiles)));
             }
         }
 
@@ -56,6 +70,7 @@ namespace NaflimTools.WPF.Model
         public BatchRenameViewModel()
         {
             _fileList = new ObservableCollection<FileModel>();
+            _selectedFiles = new ObservableCollection<FileModel>();
             _prefix = string.Empty;
         }
 

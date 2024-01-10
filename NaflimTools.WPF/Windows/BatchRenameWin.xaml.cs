@@ -58,5 +58,18 @@ namespace NaflimTools.WPF.Windows
                 file.Path = newPath;
             }
         }
+
+        private void FileExport(object sender, MouseButtonEventArgs e)
+        {
+            var obj = e.Source;
+            if (ViewModel.SelectedFiles == null || ViewModel.SelectedFiles.Count == 0)
+                return;
+
+            string[] files = ViewModel.SelectedFiles.Select(v => v.Path).ToArray();
+            if (obj is UIElement)
+            {
+                DragDrop.DoDragDrop(obj as UIElement, new DataObject(DataFormats.FileDrop, files), DragDropEffects.Copy | DragDropEffects.Move);
+            }
+        }
     }
 }
