@@ -10,9 +10,14 @@ namespace NaflimTools.WPF.Model
 {
     public class BatchRenameViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<string> _fileList;
+        private ObservableCollection<FileModel> _fileList;
+        private string _prefix;
+        private int _startIndex;
 
-        public ObservableCollection<string> FileList
+        /// <summary>
+        /// 文件列表
+        /// </summary>
+        public ObservableCollection<FileModel> FileList
         {
             get { return _fileList; }
             set
@@ -22,9 +27,36 @@ namespace NaflimTools.WPF.Model
             }
         }
 
+        /// <summary>
+        /// 前缀
+        /// </summary>
+        public string Prefix
+        {
+            get { return _prefix; }
+            set 
+            { 
+                _prefix = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Prefix)));
+            }
+        }
+
+        /// <summary>
+        /// 起始索引
+        /// </summary>
+        public int StartIndex
+        {
+            get { return _startIndex; }
+            set 
+            {
+                _startIndex = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(StartIndex)));
+            }
+        }
+
         public BatchRenameViewModel()
         {
-            _fileList = new ObservableCollection<string>();
+            _fileList = new ObservableCollection<FileModel>();
+            _prefix = string.Empty;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

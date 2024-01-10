@@ -25,15 +25,21 @@
 
         <ListBox Style="{StaticResource MahApps.Styles.ListBox.Virtualized}"
                  ItemsSource="{Binding ViewModel.FileList,ElementName=baseWin}"
-                 Drop="FileDrop" Grid.Row="0" Grid.ColumnSpan="7"/>
+                 Drop="FileDrop" Grid.Row="0" Grid.ColumnSpan="7">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
         <TextBlock Grid.Row="1" FontSize="20" TextAlignment="Center" VerticalAlignment="Center">前缀:</TextBlock>
-        <TextBox Grid.Row="1" Grid.Column="1" Height="30" Margin="10,0" Style="{StaticResource MahApps.Styles.TextBox}" />
+        <TextBox Grid.Row="1" Grid.Column="1" Height="30" Margin="10,0" Text="{Binding ViewModel.Prefix,ElementName=baseWin}" />
         <TextBlock Grid.Row="1" Grid.Column="3" FontSize="20" TextAlignment="Center" VerticalAlignment="Center">起始索引：</TextBlock>
-        <TextBox Grid.Row="1" Grid.Column="4" Height="30" Margin="10,0" />
+        <TextBox Grid.Row="1" Grid.Column="4" Height="30" Margin="10,0" Text="{Binding ViewModel.StartIndex,ElementName=baseWin}" />
 
         <Button Grid.Row="1" Grid.Column="6" Margin="10,5" FontSize="20"
                 Style="{StaticResource MahApps.Styles.Button.Square.Accent}" 
-                BorderThickness="0">确认</Button>
+                BorderThickness="0" Click="ConfirmClick">确认</Button>
     </Grid>
 </metro:MetroWindow>
