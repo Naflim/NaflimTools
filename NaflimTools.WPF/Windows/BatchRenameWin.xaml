@@ -4,48 +4,87 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:dd="urn:gong-wpf-dragdrop"
         xmlns:local="clr-namespace:NaflimTools.WPF.Windows"
         mc:Ignorable="d" Name="baseWin"
         Icon="../Resources/Images/Ayano.ico"
-        Title="批量重命名" Height="450" Width="800">
+        Title="批量重命名" Height="600" Width="1000">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="70" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100" />
-            <ColumnDefinition Width="160" />
-            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="80" />
+            <ColumnDefinition Width="120" />
+            <ColumnDefinition Width="30" />
             <ColumnDefinition Width="120" />
             <ColumnDefinition Width="70" />
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="150" />
             <ColumnDefinition Width="150" />
         </Grid.ColumnDefinitions>
 
-        <ListBox Style="{StaticResource MahApps.Styles.ListBox.Virtualized}"
-                 ItemsSource="{Binding ViewModel.FileList,ElementName=baseWin}"
+        <ListBox ItemsSource="{Binding ViewModel.FileList,ElementName=baseWin}"
                  metro:MultiSelectorHelper.SelectedItems="{Binding ViewModel.SelectedFiles,ElementName=baseWin}"
                  SelectionMode="Extended"
-                 AllowDrop="True" Drop="FileDrop"
-                 Grid.Row="0" Grid.ColumnSpan="7">
+                 Drop="FileDrop" AllowDrop="{Binding ViewModel.IsEnabledImportExport,ElementName=baseWin}"
+                 dd:DragDrop.IsDropTarget="{Binding ViewModel.IsEnabledSort,ElementName=baseWin}"
+                 dd:DragDrop.IsDragSource="{Binding ViewModel.IsEnabledSort,ElementName=baseWin}"
+                 Grid.Row="0" Grid.ColumnSpan="{Binding ViewModel.ListBoxColumnSpan,ElementName=baseWin}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel MouseLeftButtonDown="FileExport" Orientation="Horizontal">
-                        <Image Source="{Binding Logo}" Width="50" Height="50" />
-                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" FontSize="20" />
-                    </StackPanel>
+                    <Grid MouseLeftButtonDown="FileExport">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Image Source="{Binding Logo}" Grid.Column="0" />
+                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" FontSize="20" Grid.Column="1" />
+                    </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+
+        <Image Grid.Row="0" Grid.Column="7" Grid.ColumnSpan="2" Panel.ZIndex="99"
+               Visibility="{Binding ViewModel.ImgVisibility,ElementName=baseWin}"
+               Source="{Binding ViewModel.PreviewSource,ElementName=baseWin}" />
 
         <TextBlock Grid.Row="1" FontSize="20" TextAlignment="Center" VerticalAlignment="Center">前缀:</TextBlock>
         <TextBox Grid.Row="1" Grid.Column="1" Height="30" Margin="10,0" Text="{Binding ViewModel.Prefix,ElementName=baseWin}" />
         <TextBlock Grid.Row="1" Grid.Column="3" FontSize="20" TextAlignment="Center" VerticalAlignment="Center">起始索引：</TextBlock>
         <TextBox Grid.Row="1" Grid.Column="4" Height="30" Margin="10,0" Text="{Binding ViewModel.StartIndex,ElementName=baseWin}" />
 
-        <Button Grid.Row="1" Grid.Column="6" Margin="10,5" FontSize="20"
+        <StackPanel Grid.Row="1" Grid.Column="5" VerticalAlignment="Center" Margin="20,0">
+            <RadioButton Style="{StaticResource MahApps.Styles.RadioButton.Win10}" 
+                         IsChecked="{Binding ViewModel.IsEnabledImportExport,ElementName=baseWin}">
+                启用导入导出
+            </RadioButton>
+            
+            <RadioButton Style="{StaticResource MahApps.Styles.RadioButton.Win10}" 
+                         IsChecked="{Binding ViewModel.IsEnabledSort,ElementName=baseWin}">
+                启用排序
+            </RadioButton>
+        </StackPanel>
+
+        <CheckBox Grid.Row="1" Grid.Column="6"
+                  Style="{StaticResource MahApps.Styles.CheckBox.Win10}"
+                  HorizontalAlignment="Center"
+                  IsChecked="{Binding ViewModel.IsEnabledPicturePreview,ElementName=baseWin}">
+            预览图片
+        </CheckBox>
+
+        <Button Grid.Row="1" Grid.Column="7" Margin="10,10" FontSize="20"
                 Style="{StaticResource MahApps.Styles.Button.Square.Accent}" 
                 BorderThickness="0" Click="ConfirmClick">确认</Button>
+
+        <Button Grid.Row="1" Grid.Column="8" Margin="10,10" FontSize="20"
+         Style="{StaticResource MahApps.Styles.Button.Square}" 
+         BorderThickness="0" Click="ClearClick">清除</Button>
     </Grid>
 </metro:MetroWindow>

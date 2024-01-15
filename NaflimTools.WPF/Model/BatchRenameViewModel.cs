@@ -5,6 +5,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
 
 namespace NaflimTools.WPF.Model
 {
@@ -14,6 +16,9 @@ namespace NaflimTools.WPF.Model
         private ObservableCollection<FileModel> _selectedFiles;
         private string _prefix;
         private int _startIndex;
+        private bool _isEnabledSort;
+        private bool _isEnabledImportExport = true;
+        private bool _isEnabledPicturePreview;
 
         /// <summary>
         /// 文件列表
@@ -47,8 +52,8 @@ namespace NaflimTools.WPF.Model
         public string Prefix
         {
             get { return _prefix; }
-            set 
-            { 
+            set
+            {
                 _prefix = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Prefix)));
             }
@@ -60,18 +65,76 @@ namespace NaflimTools.WPF.Model
         public int StartIndex
         {
             get { return _startIndex; }
-            set 
+            set
             {
                 _startIndex = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(StartIndex)));
             }
         }
 
+        /// <summary>
+        /// 是否启用排序
+        /// </summary>
+        public bool IsEnabledSort
+        {
+            get { return _isEnabledSort; }
+            set
+            {
+                _isEnabledSort = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsEnabledSort)));
+            }
+        }
+
+        /// <summary>
+        /// 是否启用导入导出
+        /// </summary>
+        public bool IsEnabledImportExport
+        {
+            get { return _isEnabledImportExport; }
+            set
+            {
+                _isEnabledImportExport = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsEnabledImportExport)));
+            }
+        }
+
+
+        /// <summary>
+        /// 是否启用图片预览
+        /// </summary>
+        public bool IsEnabledPicturePreview
+        {
+            get { return _isEnabledPicturePreview; }
+            set
+            {
+                _isEnabledPicturePreview = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsEnabledPicturePreview)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ListBoxColumnSpan)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ImgVisibility)));
+            }
+        }
+
+        /// <summary>
+        /// 列表行占用
+        /// </summary>
+        public int ListBoxColumnSpan => IsEnabledPicturePreview ? 7 : 9;
+
+        /// <summary>
+        /// 预览控件是否隐藏
+        /// </summary>
+        public Visibility ImgVisibility => IsEnabledPicturePreview ? Visibility.Visible : Visibility.Hidden;
+
+        /// <summary>
+        /// 预览图片源
+        /// </summary>
+        public ImageSource? PreviewSource => SelectedFiles.FirstOrDefault()?.Logo;
+
         public BatchRenameViewModel()
         {
             _fileList = new ObservableCollection<FileModel>();
             _selectedFiles = new ObservableCollection<FileModel>();
             _prefix = string.Empty;
+            SelectedFiles.CollectionChanged += (s, e) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PreviewSource)));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
