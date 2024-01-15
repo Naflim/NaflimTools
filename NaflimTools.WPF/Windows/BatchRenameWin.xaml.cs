@@ -92,7 +92,18 @@ namespace NaflimTools.WPF.Windows
 
         private void ClearClick(object sender, RoutedEventArgs e)
         {
-            ViewModel.FileList.Clear();
+            if (ViewModel.SelectedFiles.Count == 0)
+            {
+                ViewModel.FileList.Clear();
+            }
+            else
+            {
+                var selectFiles = ViewModel.SelectedFiles.ToArray();
+
+                foreach (var file in selectFiles)
+                    ViewModel.FileList.Remove(file);
+            }
+
         }
     }
 }
