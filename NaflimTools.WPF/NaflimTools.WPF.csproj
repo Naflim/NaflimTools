@@ -14,10 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\Images\Ayano.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="gong-wpf-dragdrop" Version="3.2.1" />
     <PackageReference Include="MahApps.Metro" Version="2.4.10" />
     <PackageReference Include="System.Drawing.Common" Version="8.0.1" />
@@ -25,7 +21,7 @@
 
   <ItemGroup>
     <Resource Include="Resources\Images\Ayano.ico">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
 
