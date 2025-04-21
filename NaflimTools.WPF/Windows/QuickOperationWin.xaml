@@ -1,0 +1,27 @@
+﻿<metro:MetroWindow x:Class="NaflimTools.WPF.Windows.QuickOperationWin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NaflimTools.WPF.Windows"
+        xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+        mc:Ignorable="d"
+        Icon="../Resources/Images/Ayano.ico" Name="baseWin"
+        Title="快捷操作" Height="450" Width="500">
+    <Grid DataContext="{Binding ViewModel, ElementName=baseWin}" ButtonBase.Click="RecordShortcutKeysClick">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <metro:ToggleSwitch Margin="10,0,0,0" IsOn="{Binding IsOnWebMedia}">
+            网页媒体快捷操作
+        </metro:ToggleSwitch>
+        <Button Grid.Column="1" DataContext="{Binding WebMedia}" Style="{StaticResource MahApps.Styles.Button.Flat}" Content="{Binding Title}" />
+    </Grid>
+</metro:MetroWindow>

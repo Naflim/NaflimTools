@@ -1,103 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
 namespace NaflimTools.WPF.Model
 {
-    public class BatchRenameViewModel : INotifyPropertyChanged
+    /// <summary>
+    /// 批量重命名视图模型
+    /// </summary>
+    public partial class BatchRenameViewModel : ObservableObject
     {
-        private ObservableCollection<FileModel> _fileList;
-        private ObservableCollection<FileModel> _selectedFiles;
-        private string _prefix;
-        private int _startIndex;
-        private bool _isEnabledSort;
-        private bool _isEnabledImportExport = true;
-        private bool _isEnabledPicturePreview;
-
         /// <summary>
         /// 文件列表
         /// </summary>
-        public ObservableCollection<FileModel> FileList
-        {
-            get { return _fileList; }
-            set
-            {
-                _fileList = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(FileList)));
-            }
-        }
+        [ObservableProperty]
+        private ObservableCollection<FileModel> _fileList;
 
         /// <summary>
         /// 选中文件列表
         /// </summary>
-        public ObservableCollection<FileModel> SelectedFiles
-        {
-            get { return _selectedFiles; }
-            set
-            {
-                _selectedFiles = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedFiles)));
-            }
-        }
+        [ObservableProperty]
+        private ObservableCollection<FileModel> _selectedFiles;
 
         /// <summary>
         /// 前缀
         /// </summary>
-        public string Prefix
-        {
-            get { return _prefix; }
-            set
-            {
-                _prefix = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Prefix)));
-            }
-        }
+        [ObservableProperty]
+        private string _prefix;
 
         /// <summary>
         /// 起始索引
         /// </summary>
-        public int StartIndex
-        {
-            get { return _startIndex; }
-            set
-            {
-                _startIndex = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(StartIndex)));
-            }
-        }
+        [ObservableProperty]
+        private int _startIndex;
 
         /// <summary>
         /// 是否启用排序
         /// </summary>
-        public bool IsEnabledSort
-        {
-            get { return _isEnabledSort; }
-            set
-            {
-                _isEnabledSort = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsEnabledSort)));
-            }
-        }
+        [ObservableProperty]
+        private bool _isEnabledSort;
 
         /// <summary>
         /// 是否启用导入导出
         /// </summary>
-        public bool IsEnabledImportExport
-        {
-            get { return _isEnabledImportExport; }
-            set
-            {
-                _isEnabledImportExport = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsEnabledImportExport)));
-            }
-        }
+        [ObservableProperty]
+        private bool _isEnabledImportExport = true;
 
+        private bool _isEnabledPicturePreview;
 
         /// <summary>
         /// 是否启用图片预览
@@ -108,9 +57,10 @@ namespace NaflimTools.WPF.Model
             set
             {
                 _isEnabledPicturePreview = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsEnabledPicturePreview)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ListBoxColumnSpan)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ImgVisibility)));
+
+                OnPropertyChanged(nameof(IsEnabledPicturePreview));
+                OnPropertyChanged(nameof(ListBoxColumnSpan));
+                OnPropertyChanged(nameof(ImgVisibility));
             }
         }
 
@@ -134,9 +84,7 @@ namespace NaflimTools.WPF.Model
             _fileList = new ObservableCollection<FileModel>();
             _selectedFiles = new ObservableCollection<FileModel>();
             _prefix = string.Empty;
-            SelectedFiles.CollectionChanged += (s, e) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PreviewSource)));
+            SelectedFiles.CollectionChanged += (s, e) => OnPropertyChanged(nameof(PreviewSource));
         }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
     }
 }

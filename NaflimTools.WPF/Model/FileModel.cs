@@ -5,38 +5,32 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.IO;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace NaflimTools.WPF.Model
 {
-    public class FileModel : INotifyPropertyChanged
+    /// <summary>
+    /// 文件模型
+    /// </summary>
+    public partial class FileModel : ObservableObject
     {
+        /// <summary>
+        /// 绝对路径
+        /// </summary>
+        [ObservableProperty]
         private string _path;
 
-        public FileModel(string path) 
+        public FileModel(string path)
         {
             _path = path;
         }
 
         /// <summary>
-        /// 绝对路径
-        /// </summary>
-        public string Path
-        {
-            get { return _path; }
-            set
-            {
-                _path = value;
-               
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
-            }
-        }
-
-        /// <summary>
         /// 图标
         /// </summary>
-        public ImageSource? Logo 
+        public ImageSource? Logo
         {
-            get 
+            get
             {
                 if (IsImage)
                 {
@@ -77,7 +71,5 @@ namespace NaflimTools.WPF.Model
         public string Extension => System.IO.Path.GetExtension(Path);
 
         public bool IsImage => Extension == ".jpg" || Extension == ".png";
-
-        public event PropertyChangedEventHandler? PropertyChanged;
     }
 }

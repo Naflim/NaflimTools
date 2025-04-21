@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using NaflimTools.WPF.Model;
 using NaflimTools.WPF.Windows;
 using System.Text;
 using System.Windows;
@@ -18,8 +19,11 @@ namespace NaflimTools.WPF
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        private readonly ToolsConfig _config;
+
         public MainWindow()
         {
+            _config = ToolsConfig.Load();
             InitializeComponent();
         }
 
@@ -32,6 +36,12 @@ namespace NaflimTools.WPF
         private void ChatGPTClick(object sender, RoutedEventArgs e)
         {
             ChatGPTWin win = new();
+            win.ShowDialog();
+        }
+
+        private void QuickOperationClick(object sender, RoutedEventArgs e)
+        {
+            QuickOperationWin win = new(_config.QuickOperationViewModel);
             win.ShowDialog();
         }
     }

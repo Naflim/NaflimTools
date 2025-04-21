@@ -12,9 +12,14 @@
                 BorderThickness="0"
                 Click="BatchRenameClick">批量重命名</Button>
 
+        <Button Width="200" Height="50" FontSize="20" 
+                Style="{StaticResource MahApps.Styles.Button.Square.Accent}" 
+                BorderThickness="0"
+                Click="QuickOperationClick">快捷操作</Button>
+
         <Button Width="200" Height="50" FontSize="20" Visibility="Collapsed"
-        Style="{StaticResource MahApps.Styles.Button.Square.Accent}" 
-        BorderThickness="0" metro:ControlsHelper.ContentCharacterCasing="Normal"
-        Click="ChatGPTClick">ChatGPT</Button>
+                Style="{StaticResource MahApps.Styles.Button.Square.Accent}" 
+                BorderThickness="0" metro:ControlsHelper.ContentCharacterCasing="Normal"
+                Click="ChatGPTClick">ChatGPT</Button>
     </UniformGrid>
 </metro:MetroWindow>
